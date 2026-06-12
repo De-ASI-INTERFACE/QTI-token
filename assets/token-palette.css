@@ -1,0 +1,16 @@
+/* Quantum Trading Infinity — QTI Token Design Palette */
+
+.token-preview {
+  --bg:        #05070d;
+  --primary:   #2fd8ff;
+  --secondary: #3a7bff;
+  --accent:    #8a5cff;
+  --glow:      rgba(47, 216, 255, 0.35);
+  --surface:   rgba(255, 255, 255, 0.04);
+  --text:      #e8f4ff;
+}
+
+/* Token icon hosted assets */
+/* Original source image: IMG_3393.jpeg */
+/* Refined token icon (200x200): https://user-gen-media-assets.s3.amazonaws.com/seedream_images/9ff4dc7d-f0b4-47b5-ac46-8448c3fcc2bd.png */
+/* Token page preview: https://user-gen-media-assets.s3.amazonaws.com/seedream_images/9ff4dc7d-f0b4-47b5-ac46-8448c3fcc2bd.png */

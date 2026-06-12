@@ -1,0 +1,29 @@
+{
+  "name": "Quantum Trading Infinity",
+  "symbol": "QTI",
+  "description": "Quantum Trading Infinity (QTI) is a next-generation algorithmic trading token built on the Solana blockchain. Engineered for precision, speed, and infinite scalability across decentralized markets.",
+  "image": "ipfs://YOUR_IMAGE_CID_HERE",
+  "external_url": "https://github.com/De-ASI-INTERFACE/QTI-token",
+  "attributes": [
+    { "trait_type": "Chain", "value": "Solana" },
+    { "trait_type": "Category", "value": "Utility" },
+    { "trait_type": "Type", "value": "Algorithmic Trading" },
+    { "trait_type": "Standard", "value": "SPL Token" },
+    { "trait_type": "Symbol", "value": "QTI" }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://YOUR_IMAGE_CID_HERE",
+        "type": "image/png"
+      }
+    ],
+    "category": "image",
+    "creators": [
+      {
+        "address": "",
+        "share": 100
+      }
+    ]
+  }
+}
