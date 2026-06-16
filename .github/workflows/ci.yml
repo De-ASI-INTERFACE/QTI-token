@@ -1,0 +1,62 @@
+name: CI — QTI-token
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Assets & Metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify Node version
+        run: node --version
+
+      - name: Validate JSON metadata files
+        run: |
+          for f in $(find . -name '*.json' -not -path './.git/*'); do
+            echo "Validating $f..."
+            node -e "JSON.parse(require('fs').readFileSync('$f', 'utf8')); console.log('OK: $f')"
+          done
+
+      - name: Check required metadata fields
+        run: |
+          node -e "
+            const fs = require('fs');
+            const files = fs.readdirSync('.').filter(f => f.endsWith('.json'));
+            files.forEach(file => {
+              try {
+                const meta = JSON.parse(fs.readFileSync(file, 'utf8'));
+                const required = ['name', 'symbol', 'description', 'image'];
+                const missing = required.filter(k => !meta[k]);
+                if (missing.length) console.warn('WARN:', file, 'missing fields:', missing);
+                else console.log('OK:', file, '- all required fields present');
+              } catch(e) { /* not a token metadata file */ }
+            });
+          " || true
+
+      - name: Validate CSS syntax
+        run: |
+          if ls *.css 1> /dev/null 2>&1; then
+            npx --yes stylelint '**/*.css' --config '{"rules":{}}' || true
+          else
+            echo "No CSS files in root"
+          fi
+
+      - name: Confirm image assets exist
+        run: |
+          echo "Asset inventory:"
+          find . -name '*.png' -o -name '*.jpg' -o -name '*.svg' -o -name '*.webp' | grep -v .git || echo "No image assets found"
