@@ -1,36 +1,18 @@
 # Quantum Trading Infinity (QTI)
 
-<!-- ============================================================ -->
-<!-- BADGE ROW 1 — Program Verification & On-Chain Status         -->
-<!-- solana-verify: static brightgreen (verified label)           -->
-<!-- Explorer/SolScan: original Solana purple/cyan                -->
-<!-- ============================================================ -->
-
 [![solana-verify](https://img.shields.io/badge/solana--verify-verified-brightgreen?style=flat-square&logo=solana&logoColor=white)](https://verify.osec.io/status/YOUR_PROGRAM_ID)
 [![Solana Explorer](https://img.shields.io/badge/Solana_Explorer-Program-9945FF?style=flat-square&logo=solana&logoColor=white)](https://explorer.solana.com/address/YOUR_PROGRAM_ID)
 [![SolScan](https://img.shields.io/badge/SolScan-Program-00D4FF?style=flat-square&logo=solana&logoColor=white)](https://solscan.io/account/YOUR_PROGRAM_ID)
-
-<!-- ============================================================ -->
-<!-- BADGE ROW 2 — Token Identity (original colors)              -->
-<!-- ============================================================ -->
 
 [![Token](https://img.shields.io/badge/Token-QTI-2fd8ff?style=flat-square&logo=solana&logoColor=white)](https://github.com/De-ASI-INTERFACE/QTI-token)
 [![Chain](https://img.shields.io/badge/Chain-Solana_Mainnet-9945FF?style=flat-square&logo=solana&logoColor=white)](https://solana.com)
 [![Standard](https://img.shields.io/badge/Standard-SPL_Token-3a7bff?style=flat-square)](https://spl.solana.com/token)
 [![Decimals](https://img.shields.io/badge/Decimals-9-8a5cff?style=flat-square)](https://github.com/De-ASI-INTERFACE/QTI-token/blob/main/metadata.json)
 
-<!-- ============================================================ -->
-<!-- BADGE ROW 3 — Build, Audit & Repo Health (original colors)  -->
-<!-- ============================================================ -->
-
 [![Anchor](https://img.shields.io/badge/Anchor-0.30.1-ff6b35?style=flat-square)](https://www.anchor-lang.com)
 [![Rust](https://img.shields.io/badge/Rust-1.79.0-orange?style=flat-square&logo=rust&logoColor=white)](https://www.rust-lang.org)
 [![Audit](https://img.shields.io/badge/Audit-100%2F100-00c853?style=flat-square&logo=checkmarx&logoColor=white)](https://github.com/De-ASI-INTERFACE/De-ASI-INTERFACE/blob/main/AUDIT_REPORT.md)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](./LICENSE)
-
-<!-- ============================================================ -->
-<!-- BADGE ROW 4 — Infrastructure (original colors)              -->
-<!-- ============================================================ -->
 
 [![Railway](https://img.shields.io/badge/Railway-Deployed-0B0D0E?style=flat-square&logo=railway&logoColor=white)](https://railway.app)
 [![Vercel](https://img.shields.io/badge/Vercel-qti--launch--site-000000?style=flat-square&logo=vercel&logoColor=white)](https://github.com/De-ASI-INTERFACE/qti-launch-site)
