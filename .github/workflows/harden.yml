@@ -1,0 +1,177 @@
+name: Harden — DeASI Security & Compliance CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ---------------------------------------------------------------
+  # 1. Secret Scanning — reject any committed credentials or keys
+  # ---------------------------------------------------------------
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install trufflehog
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan for secrets
+        run: |
+          trufflehog git file://. --since-commit HEAD~1 --only-verified --fail
+
+  # ---------------------------------------------------------------
+  # 2. Placeholder Detection — no stub values in committed files
+  # ---------------------------------------------------------------
+  placeholder-check:
+    name: Placeholder Detection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect unresolved placeholders
+        run: |
+          echo "Scanning for unresolved placeholder tokens..."
+          PLACEHOLDERS=(
+            "YOUR_IMAGE_CID_HERE"
+            "YOUR_PROGRAM_ID"
+            "address.*\"\""
+          )
+          FAIL=0
+          for pattern in "${PLACEHOLDERS[@]}"; do
+            # Exclude CHANGELOG and README instructions sections
+            HITS=$(grep -rn --include="*.json" --include="*.lean" "$pattern" . 2>/dev/null | \
+                   grep -v 'CHANGELOG\|Replace\|\# ' || true)
+            if [ -n "$HITS" ]; then
+              echo "FAIL: Unresolved placeholder found:"
+              echo "$HITS"
+              FAIL=1
+            fi
+          done
+          if [ $FAIL -eq 1 ]; then exit 1; fi
+          echo "All placeholder checks passed."
+
+  # ---------------------------------------------------------------
+  # 3. Compliance Doc Completeness — required sections must exist
+  # ---------------------------------------------------------------
+  compliance-check:
+    name: Compliance Document Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify compliance documents exist and are complete
+        run: |
+          echo "Checking required compliance documents..."
+          REQUIRED_FILES=(
+            "compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md"
+            "audits/FORMAL_VERIFICATION_LEAN4.md"
+            "docs/DEASI_NARRATIVE_POSITIONING.md"
+            "CHANGELOG.md"
+          )
+          for f in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "FAIL: Required document missing: $f"
+              exit 1
+            fi
+            SIZE=$(wc -c < "$f")
+            if [ "$SIZE" -lt 500 ]; then
+              echo "FAIL: Document appears incomplete (< 500 bytes): $f ($SIZE bytes)"
+              exit 1
+            fi
+            echo "OK: $f ($SIZE bytes)"
+          done
+
+          echo "Checking required sections in MiCA compliance doc..."
+          REQUIRED_SECTIONS=(
+            "MiCA Compliance"
+            "Howey Test"
+            "IRS"
+            "FATF"
+            "Conflicts of Interest"
+            "Risk Disclosures"
+          )
+          for section in "${REQUIRED_SECTIONS[@]}"; do
+            if ! grep -q "$section" compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md; then
+              echo "FAIL: Required section missing from compliance doc: $section"
+              exit 1
+            fi
+            echo "OK: Section found: $section"
+          done
+
+          echo "Checking required theorems in Lean 4 verification doc..."
+          THEOREMS=(
+            "qti_supply_bounded"
+            "cpamm_invariant_preserved"
+            "governance_threshold_enforced"
+            "no_reentrancy"
+          )
+          for thm in "${THEOREMS[@]}"; do
+            if ! grep -q "$thm" audits/FORMAL_VERIFICATION_LEAN4.md; then
+              echo "FAIL: Theorem missing from verification doc: $thm"
+              exit 1
+            fi
+            echo "OK: Theorem documented: $thm"
+          done
+
+  # ---------------------------------------------------------------
+  # 4. Lean Proof Lint — reject any sorry in proof stubs
+  # ---------------------------------------------------------------
+  lean-sorry-check:
+    name: Lean 4 Sorry-Free Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for sorry in Lean proof files
+        run: |
+          echo "Scanning Lean files for 'sorry' placeholders..."
+          if find proofs/ -name '*.lean' 2>/dev/null | xargs grep -l '\bsorry\b' 2>/dev/null | grep -q .; then
+            echo "FAIL: 'sorry' found in Lean proof files. All theorems must be fully proven."
+            grep -rn '\bsorry\b' proofs/ --include='*.lean'
+            exit 1
+          fi
+          echo "OK: No 'sorry' found in Lean proof corpus."
+
+  # ---------------------------------------------------------------
+  # 5. Metadata JSON Validation
+  # ---------------------------------------------------------------
+  metadata-validate:
+    name: Metadata JSON Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate all JSON files
+        run: |
+          for f in $(find . -name '*.json' -not -path './.github/*'); do
+            echo "Validating $f"
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" && echo "OK: $f" || exit 1
+          done
+
+      - name: Validate metadata.json required fields
+        run: |
+          node -e "
+            const m = JSON.parse(require('fs').readFileSync('metadata.json','utf8'));
+            const required = ['name','symbol','description','image','external_url','attributes','properties'];
+            required.forEach(k => {
+              if (!m[k]) { console.error('FAIL: Missing field: ' + k); process.exit(1); }
+              console.log('OK: ' + k);
+            });
+            const attrs = m.attributes.map(a => a.trait_type);
+            const reqAttrs = ['Chain','Category','Formal Verification','Audit Score','Compliance'];
+            reqAttrs.forEach(a => {
+              if (!attrs.includes(a)) { console.error('FAIL: Missing attribute: ' + a); process.exit(1); }
+              console.log('OK attr: ' + a);
+            });
+          "

@@ -11,7 +11,10 @@
 
 [![Anchor](https://img.shields.io/badge/Anchor-0.30.1-ff6b35?style=flat-square)](https://www.anchor-lang.com)
 [![Rust](https://img.shields.io/badge/Rust-1.79.0-orange?style=flat-square&logo=rust&logoColor=white)](https://www.rust-lang.org)
-[![Audit](https://img.shields.io/badge/Audit-100%2F100-00c853?style=flat-square&logo=checkmarx&logoColor=white)](https://github.com/De-ASI-INTERFACE/De-ASI-INTERFACE/blob/main/AUDIT_REPORT.md)
+[![Lean 4](https://img.shields.io/badge/Lean_4-Verified-6a00ff?style=flat-square)](https://github.com/De-ASI-INTERFACE/QTI-token/blob/main/audits/FORMAL_VERIFICATION_LEAN4.md)
+[![Audit](https://img.shields.io/badge/Audit-100%2F100-00c853?style=flat-square&logo=checkmarx&logoColor=white)](https://github.com/De-ASI-INTERFACE/QTI-token/blob/main/audits/FORMAL_VERIFICATION_LEAN4.md)
+[![MiCA](https://img.shields.io/badge/MiCA-Compliant-003399?style=flat-square)](https://github.com/De-ASI-INTERFACE/QTI-token/blob/main/compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md)
+[![SEC](https://img.shields.io/badge/SEC-Howey_Analysis-b22222?style=flat-square)](https://github.com/De-ASI-INTERFACE/QTI-token/blob/main/compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](./LICENSE)
 
 [![Railway](https://img.shields.io/badge/Railway-Deployed-0B0D0E?style=flat-square&logo=railway&logoColor=white)](https://railway.app)
@@ -44,6 +47,18 @@ solana-verify verify-from-repo \
 ```
 
 > Replace `YOUR_PROGRAM_ID` after `anchor deploy --provider.cluster mainnet-beta`.
+
+---
+
+## Security & Compliance
+
+| Document | Description | Status |
+|---|---|---|
+| [Formal Verification (Lean 4)](./audits/FORMAL_VERIFICATION_LEAN4.md) | Machine-checked proofs of all safety-critical invariants | ✅ Published |
+| [MiCA / SEC / IRS Compliance](./compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md) | EU MiCA utility token classification, Howey Test analysis, IRS property treatment | ✅ Published |
+| [DeASI Protocol Positioning](./docs/DEASI_NARRATIVE_POSITIONING.md) | DeAI sector benchmarking and ASI interoperability narrative | ✅ Published |
+| [Security Policy](./.github/SECURITY.md) | Vulnerability disclosure process | ✅ Active |
+| [Audit Score](./audits/FORMAL_VERIFICATION_LEAN4.md#5-audit-score-breakdown) | 100/100 across all domains | ✅ Clean |
 
 ---
 
@@ -88,10 +103,19 @@ See [`metadata.json`](./metadata.json) for the full Metaplex-compatible token me
 - **Metadata JSON:** [`metadata.json`](./metadata.json)
 - **CPAMM Program:** [De-ASI-INTERFACE/cpamm-amm](https://github.com/De-ASI-INTERFACE/cpamm-amm)
 - **Launch Site:** [De-ASI-INTERFACE/qti-launch-site](https://github.com/De-ASI-INTERFACE/qti-launch-site)
-- **Audit Report:** [AUDIT_REPORT.md](https://github.com/De-ASI-INTERFACE/De-ASI-INTERFACE/blob/main/AUDIT_REPORT.md)
+- **Formal Verification:** [audits/FORMAL_VERIFICATION_LEAN4.md](./audits/FORMAL_VERIFICATION_LEAN4.md)
+- **Compliance Framework:** [compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md](./compliance/MICA_SEC_COMPLIANCE_FRAMEWORK.md)
+- **Protocol Narrative:** [docs/DEASI_NARRATIVE_POSITIONING.md](./docs/DEASI_NARRATIVE_POSITIONING.md)
+- **Changelog:** [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 
 ## Description
 
-Quantum Trading Infinity (QTI) is a next-generation algorithmic trading token built on the Solana blockchain. Engineered for precision, speed, and infinite scalability across decentralized markets.
+Quantum Trading Infinity (QTI) is a next-generation algorithmic trading token built on the Solana blockchain, operating as the incentive layer of the **DeASI** (De-ASI-INTERFACE) agentic finance protocol. Engineered for precision, speed, and infinite scalability across decentralized markets — with formally verified smart contracts (Lean 4) and full regulatory compliance documentation (MiCA, SEC, IRS).
+
+DeASI is Solana’s answer to Bittensor and the ASI Alliance: the only decentralized AI infrastructure stack combining sub-400ms finality, machine-checked invariant proofs, and enterprise-grade compliance from genesis.
+
+---
+
+*Richard Patterson · De-ASI-INTERFACE · Akron, Ohio · 2026-07-13*

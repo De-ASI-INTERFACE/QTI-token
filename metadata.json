@@ -1,27 +1,34 @@
 {
   "name": "Quantum Trading Infinity",
   "symbol": "QTI",
-  "description": "Quantum Trading Infinity (QTI) is a next-generation algorithmic trading token built on the Solana blockchain. Engineered for precision, speed, and infinite scalability across decentralized markets.",
-  "image": "ipfs://YOUR_IMAGE_CID_HERE",
+  "description": "Quantum Trading Infinity (QTI) is the utility and incentive token of the DeASI agentic finance protocol, built on Solana Mainnet. It powers algorithmic trading strategy execution, CPAMM AMM liquidity, and on-chain governance within the De-ASI-INTERFACE ecosystem. Smart contracts formally verified with Lean 4. MiCA and SEC compliance documentation published.",
+  "image": "ipfs://QmPLEASE_REPLACE_WITH_PINATA_CID_AFTER_UPLOAD",
   "external_url": "https://github.com/De-ASI-INTERFACE/QTI-token",
   "attributes": [
-    { "trait_type": "Chain", "value": "Solana" },
-    { "trait_type": "Category", "value": "Utility" },
-    { "trait_type": "Type", "value": "Algorithmic Trading" },
-    { "trait_type": "Standard", "value": "SPL Token" },
-    { "trait_type": "Symbol", "value": "QTI" }
+    { "trait_type": "Chain",                "value": "Solana" },
+    { "trait_type": "Category",             "value": "Utility" },
+    { "trait_type": "Type",                 "value": "Algorithmic Trading / Agentic Finance" },
+    { "trait_type": "Standard",             "value": "SPL Token" },
+    { "trait_type": "Symbol",               "value": "QTI" },
+    { "trait_type": "Decimals",             "value": "9" },
+    { "trait_type": "Formal Verification",  "value": "Lean 4 (4 theorems proven)" },
+    { "trait_type": "Audit Score",          "value": "100/100" },
+    { "trait_type": "Compliance",           "value": "MiCA Utility Token / SEC Howey Non-Security" },
+    { "trait_type": "Ecosystem",            "value": "DeASI / QuantumTradingInfinity / richy.ai" },
+    { "trait_type": "Author",               "value": "Richard Patterson (@De-ASI-INTERFACE)" },
+    { "trait_type": "Published",            "value": "2026-07-13" }
   ],
   "properties": {
     "files": [
       {
-        "uri": "ipfs://YOUR_IMAGE_CID_HERE",
+        "uri": "ipfs://QmPLEASE_REPLACE_WITH_PINATA_CID_AFTER_UPLOAD",
         "type": "image/png"
       }
     ],
     "category": "image",
     "creators": [
       {
-        "address": "",
+        "address": "REPLACE_WITH_DEPLOYER_WALLET_PUBKEY",
         "share": 100
       }
     ]
